@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body{
+            background-color: aqua;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container{
+            background-color: beige;
+            color: black;
+            border: 2px solid red;
+            width: 500px;
+            height: 400px;
+            text-align: center;
+            border-radius: 30px;  
+        }
+        .class{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+     <form id="myForm" onsubmit="return validateForm()">
+        <div class="class">
+        <label>Name:</label>
+        <input type="text" id="name">
+        <span class="error" id="nameError"></span>
+        </div>
+        <div class="class">
+        <label>Email:</label>
+        <input type="email" id="email">
+        <span class="error" id="emailError"></span>
+        </div>
+        <div class="class">
+        <label>Password:</label>
+        <input type="password" id="password">
+        <span class="error" id="passwordError"></span>
+        </div>
+        <div class="class">
+        <label>Confirm Password:</label>
+        <input type="password" id="confirmPassword">
+        <span class="error" id="confirmPasswordError"></span>
+        </div>
+        <div class="class">
+        <button type="submit">Submit</button>
+        </div>
+     </form>
+    </div>
+
+    <script>
+          function validateForm() {
+            let isValid = true;
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let confirmPassword = document.getElementById("confirmPassword").value.trim();
+            document.getElementById("nameError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+            document.getElementById("confirmPasswordError").innerText = "";
+            if (name.length < 3) {
+                document.getElementById("nameError").innerText = "Name must be at least 3 characters.";
+                isValid = false;
+            }
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email address.";
+                isValid = false;
+            }
+            if (password.length < 6) {
+                document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
+                isValid = false;
+            }
+            if (password !== confirmPassword) {
+                document.getElementById("confirmPasswordError").innerText = "Passwords do not match.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+    </script>
+
+</body>
+</html>
